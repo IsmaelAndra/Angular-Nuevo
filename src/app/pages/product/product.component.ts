@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-// import {HttpClient} from '@angular/common/http';
+import { ProductModel, UpdateProductDto } from 'src/app/entities/product.model';
 import { ProductHttpServiceService } from 'src/app/services/product-http-service.service';
 
 @Component({
@@ -9,13 +9,19 @@ import { ProductHttpServiceService } from 'src/app/services/product-http-service
 })
 export class ProductComponent implements OnInit {
   httpClient: any;
-  constructor(private productHttpService: ProductHttpServiceService) {};
+  products: ProductModel[] = [];
+  selectedProduct: UpdateProductDto = {title:'', price:0, description:''};
+  constructor(private productHttpService: ProductHttpServiceService) {
+    //this.initProduct();
+  };
 
 
   getProducts():void{
     const url ="https://api.escuelajs.co/api/v1/products";
     this.productHttpService.getAll().subscribe
-    (response => {console.log(response);
+    (response => {
+      this.products = response;
+      console.log(response);
     });
   }
 
@@ -56,10 +62,15 @@ export class ProductComponent implements OnInit {
     );
   }
 
-  deleteProduct(){
+  editProduct(product: ProductModel){
+    this.selectedProduct = product;
+  }
+
+  deleteProduct(id: ProductModel['id']){
     const url = "https://api.escuelajs.co/api/v1/products/192";
-    this.productHttpService.destroy(61).subscribe(
-      response => {console.log(response);
+    this.productHttpService.destroy(id).subscribe(
+      response => {
+        console.log(response);
       }
     );
   }
@@ -69,7 +80,11 @@ export class ProductComponent implements OnInit {
     //this.getProduct();
     //this.createProduct();
     //this.updateProduct();
-    this.deleteProduct();
+    //this.deleteProduct(id);
   }
+
+  // initProduct(){
+  //   this.selectedProduct: UpdateProductDto = {title:'', price:0, description:''};
+  // }
 
 }
