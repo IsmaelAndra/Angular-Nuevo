@@ -17,7 +17,6 @@ export class ProductComponent implements OnInit {
 
 
   getProducts():void{
-    const url ="https://api.escuelajs.co/api/v1/products";
     this.productHttpService.getAll().subscribe
     (response => {
       this.products = response;
@@ -26,7 +25,6 @@ export class ProductComponent implements OnInit {
   }
 
   getProduct(){
-    const url ="https://api.escuelajs.co/api/v1/products/20";
     this.productHttpService.getOne(2).subscribe
     (response => {console.log(response);
     });
@@ -40,7 +38,6 @@ export class ProductComponent implements OnInit {
       images:["https://sdfsdgsdhasjh"],
       categoryId:1
     }
-    const url = "https://api.escuelajs.co/api/v1/products/192";
     this.productHttpService.store(data).subscribe(
       response => {console.log(response);
       }
@@ -55,7 +52,6 @@ export class ProductComponent implements OnInit {
       images:["https://https://i.pinimg.com/originals/15/c5/69/15c56972ae4fbb6b394a6e6efced477b.jpg"],
       categoryId:1
     }
-    const url = "https://api.escuelajs.co/api/v1/products/192";
     this.productHttpService.update(30, data).subscribe(
       (response : any ) => {console.log(response);
       }
@@ -67,7 +63,6 @@ export class ProductComponent implements OnInit {
   }
 
   deleteProduct(id: ProductModel['id']){
-    const url = "https://api.escuelajs.co/api/v1/products/192";
     this.productHttpService.destroy(id).subscribe(
       response => {
         console.log(response);
@@ -76,7 +71,7 @@ export class ProductComponent implements OnInit {
   }
 
   ngOnInit(): void{
-    //this.getProducts();
+    this.getProducts();
     //this.getProduct();
     //this.createProduct();
     //this.updateProduct();
